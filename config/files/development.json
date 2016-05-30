@@ -8,7 +8,7 @@
         "port": "8080",
         "root": "",
         "endpoints": {
-          "fetch_security_context": ""
+          "fetch_security_context": "token/security_context"
         }
       }  
     },

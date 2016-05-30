@@ -7,11 +7,13 @@ var routes = require('./src/routes/index');
 
 var app = express();
 app.use(morganLogger('dev'));
+// parse application/json
 app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use('/hackauth', routes);
+app.use('/hackauth', routes);
 
 // Allow CORS
 app.use(function(req, res, next) {
