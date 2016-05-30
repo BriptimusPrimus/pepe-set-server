@@ -4,6 +4,7 @@
 
 var express = require('express');
 var userTokensController = require('../controllers/userTokens');
+var googleAuthController = require('../controllers/googleAuth');
 
 var router = express.Router();
 
@@ -14,7 +15,9 @@ router.get('/user_auth_server_method',
     // console.log('GET /user_auth_server_method');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  });
+  },
+  googleAuthController.getAuthenticationMethod
+);
 
 /* GET Google Authenticator software authenticators. */
 router.get('/google_soft_auth',
@@ -23,7 +26,8 @@ router.get('/google_soft_auth',
     // console.log('GET /google_soft_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  });
+  }
+);
 
 /* POST Activate Google Authenticator */
 router.post('/activate_google_auth',
@@ -32,7 +36,8 @@ router.post('/activate_google_auth',
     // console.log('POST activate_google_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  });
+  }
+);
 
 /* POST Authenticate with Google Authenticator */
 router.post('/authenticate_google_auth',
@@ -41,6 +46,7 @@ router.post('/authenticate_google_auth',
     // console.log('POST /authenticate_google_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  });
+  }
+);
 
 module.exports = router;
