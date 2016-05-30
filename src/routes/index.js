@@ -3,30 +3,44 @@
  */
 
 var express = require('express');
+var userTokensController = require('../controllers/userTokens');
+
 var router = express.Router();
 
 /* GET authentication method and data. */
-router.get('/user_auth_server_method', function(req, res, next) {
-  // console.log('GET /user_auth_server_method');
-  next();
-});
+router.get('/user_auth_server_method',
+  userTokensController.fetchSecurityContext, 
+  function(req, res, next) {
+    console.log('GET /user_auth_server_method');
+    console.log('fethed Security Context:', req.securityContext);
+    next();
+  });
 
 /* GET Google Authenticator software authenticators. */
-router.get('/google_soft_auth', function(req, res, next) {
-  console.log('GET /google_soft_auth');
-  next();
-});
+router.get('/google_soft_auth',
+  userTokensController.fetchSecurityContext,
+  function(req, res, next) {
+    console.log('GET /google_soft_auth');
+    console.log('fethed Security Context:', req.securityContext);
+    next();
+  });
 
 /* POST Activate Google Authenticator */
-router.post('/activate_google_auth', function(req, res, next) {
-  console.log('POST activate_google_auth');
-  next();
-});
+router.post('/activate_google_auth',
+  userTokensController.fetchSecurityContext,
+  function(req, res, next) {
+    console.log('POST activate_google_auth');
+    console.log('fethed Security Context:', req.securityContext);
+    next();
+  });
 
 /* POST Authenticate with Google Authenticator */
-router.post('/authenticate_google_auth', function(req, res, next) {
-  console.log('POST /authenticate_google_auth');
-  next();
-});
+router.post('/authenticate_google_auth',
+  userTokensController.fetchSecurityContext,
+  function(req, res, next) {
+    console.log('POST /authenticate_google_auth');
+    console.log('fethed Security Context:', req.securityContext);
+    next();
+  });
 
 module.exports = router;

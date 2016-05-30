@@ -42,7 +42,7 @@ if (app.get('env') === 'development' || app.get('env') === 'test') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
-      message: err.message,
+      errMessage: err.message,
       error: err
     });
   });
@@ -53,7 +53,7 @@ if (app.get('env') === 'development' || app.get('env') === 'test') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
-    message: err.message,
+    errMessage: err.message,
     error: {}
   });
 });
