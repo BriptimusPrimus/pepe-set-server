@@ -7,5 +7,5 @@
       "module": "mocks/i2fasMockWrap"
     }
   },
-  "mockResponseMiliseconds": 500
+  "mockResponseMiliseconds": 1000
 }
