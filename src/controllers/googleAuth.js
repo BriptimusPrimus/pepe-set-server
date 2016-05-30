@@ -10,7 +10,7 @@ function getAuthenticationMethod(req, res, next) {
     // err = new Error('HARD CODED ERROR');
     // err.someProp = 'fakeValue';
     if(err) {
-      return next(err);  
+      return next(err);
     }
 
     if(!userData) {
@@ -20,7 +20,9 @@ function getAuthenticationMethod(req, res, next) {
     }
 
     res.status(200);
-    res.json(userData);
+    res.json({
+      userData: userData
+    });
   })
 }
 

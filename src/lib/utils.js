@@ -1,6 +1,7 @@
 var constants = require('./constants');
 
 function getSessionTokenCookieValue(req) {
+  console.log('REQ COOKIES:', req.cookies);
   return req.cookies[constants.SESSION_TOKEN_COOKIE_NAME];
 }
 

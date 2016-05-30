@@ -8,7 +8,7 @@ var libUtils = require('../lib/utils');
 function fetchSecurityContext(req, res, next) {
   var errorObj;
   var sessionTokenVal = libUtils.getSessionTokenCookieValue(req);
-  console.log('sessionTokenVal:', sessionTokenVal);
+  console.log('userTokensController::sessionTokenVal:', sessionTokenVal);
   
   stsServ.exchangeSessionTokenForSecContext(sessionTokenVal, function(err, secContext) {
     if(err) {
