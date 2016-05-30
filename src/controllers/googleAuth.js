@@ -26,6 +26,24 @@ function getAuthenticationMethod(req, res, next) {
   })
 }
 
+function getSoftAuthData(req, res, next) {
+  i2faServ.getSoftAuthData(req.securityContext, function(err, activationData) {
+    if(err) {
+      return next(err);
+    }
+
+    if(!activationData) {
+      errorObj = new Error('Empty Activation Data');
+      errorObj.status = 401;
+      next(errorObj);
+    }
+    
+    res.status(200);
+    res.json(activationData);
+  })
+}
+
 module.exports = {
-  getAuthenticationMethod: getAuthenticationMethod  
+  getAuthenticationMethod: getAuthenticationMethod,
+  getSoftAuthData: getSoftAuthData
 }

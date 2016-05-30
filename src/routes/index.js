@@ -26,7 +26,8 @@ router.get('/google_soft_auth',
     // console.log('GET /google_soft_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  }
+  },
+  googleAuthController.getSoftAuthData
 );
 
 /* POST Activate Google Authenticator */

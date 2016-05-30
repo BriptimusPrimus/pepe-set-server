@@ -6,6 +6,7 @@ var implementationModule = require('../../config').backend_services.i2fas.module
 console.log('STS implementationModule', implementationModule);
 var service = require('./' + implementationModule);
 var libUtils = require('../lib/utils');
+var constants = require('../lib/constants');
 
 function getAuthenticatorType(seccurityContext, callback) {
   var userData;
@@ -31,9 +32,32 @@ function getAuthenticatorType(seccurityContext, callback) {
     }
 
     callback(null, userData);
-  })
+  });
+}
+
+function getSoftAuthData(seccurityContext, callback) {
+  var result;
+  service.softAuthData(seccurityContext, constants.i2fasService.POST_PAYLOAD, function(err, activationData) {
+    if(err) {
+      return callback(err);
+    }
+    
+    if(libUtils.isObjectEmpty(activationData)) {
+      result = {
+        error: 'invalid session token'        
+      }
+    } else {
+      result = {
+        activationData: activationData
+      };
+      result.activationData.type = 'google_auth';      
+    }
+     
+    callback(null, result);  
+  });
 }
 
 module.exports = {
-	getAuthenticatorType: getAuthenticatorType
+	getAuthenticatorType: getAuthenticatorType,
+  getSoftAuthData: getSoftAuthData
 };

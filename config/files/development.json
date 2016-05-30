@@ -18,8 +18,13 @@
         "protocol": "http",
         "host": "localhost",
         "port": "8080",
-        "root": "",
-        "endpoints": {}
+        "root": "v1/identity",
+        "endpoints": {
+          "authenticators_type": "authenticators",          
+          "soft_auth_data": "software-authenticators",
+          "activate": "software-authenticators/:id/activate",
+          "authenticate": "software-authenticators/:id/verify"
+        }
       }      
     }
   }
