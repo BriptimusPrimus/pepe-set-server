@@ -1,0 +1,26 @@
+{
+  "backend_services": {
+    "sts":{
+      "module": "implementations/stsWrap",
+      "api": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": "8080",
+        "root": "",
+        "endpoints": {
+          "fetch_security_context": ""
+        }
+      }  
+    },
+    "i2fas": {
+      "module": "implementations/i2fasWrap",
+      "api": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": "8080",
+        "root": "",
+        "endpoints": {}
+      }      
+    }
+  }
+}

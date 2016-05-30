@@ -7,6 +7,12 @@ var debug = require('debug')('hackauth');
 var http = require('http');
 
 /**
+ * Boot configuration loading.
+ */
+
+require('./config/bootConfig');
+
+/**
  * Get port from environment and store in Express.
  */
 

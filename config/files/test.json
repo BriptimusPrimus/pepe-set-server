@@ -1,0 +1,11 @@
+{
+  "backend_services": {
+    "sts":{
+      "module": "mocks/stsMockWrap"  
+    },
+    "i2fas": {
+      "module": "mocks/i2fasMockWrap"
+    }
+  },
+  "mockResponseMiliseconds": 500
+}

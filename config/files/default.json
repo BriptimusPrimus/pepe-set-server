@@ -1,0 +1,7 @@
+{
+  "LoginApp": {
+    "name": "UnifiedLogin",
+    "login_endpoint": "http://localhost:8000/signin",
+    "logout_endpoint": "http://localhost:8000/signin/signout"
+  }
+}
