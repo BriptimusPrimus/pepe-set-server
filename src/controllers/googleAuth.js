@@ -6,6 +6,9 @@ var i2faServ = require('../services/i2fasServ');
 
 function getAuthenticationMethod(req, res, next) {
   i2faServ.getAuthenticatorType(req.securityContext, function(err, userData) {
+    // uncomment to test error case
+    // err = new Error('HARD CODED ERROR');
+    // err.someProp = 'fakeValue';
     if(err) {
       return next(err);  
     }
