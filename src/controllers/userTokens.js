@@ -1,3 +1,7 @@
+/*
+ * userTokens Controller
+ */
+
 var stsServ = require('../services/stsServ');
 var libUtils = require('../lib/utils');
 
