@@ -12,7 +12,6 @@ var router = express.Router();
 router.get('/user_auth_server_method',
   userTokensController.fetchSecurityContext, 
   function(req, res, next) {
-    // console.log('GET /user_auth_server_method');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
   },
@@ -23,7 +22,6 @@ router.get('/user_auth_server_method',
 router.get('/google_soft_auth',
   userTokensController.fetchSecurityContext,
   function(req, res, next) {
-    // console.log('GET /google_soft_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
   },
@@ -34,17 +32,16 @@ router.get('/google_soft_auth',
 router.post('/activate_google_auth',
   userTokensController.fetchSecurityContext,
   function(req, res, next) {
-    // console.log('POST activate_google_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  }
+  },
+  googleAuthController.activateDevice
 );
 
 /* POST Authenticate with Google Authenticator */
 router.post('/authenticate_google_auth',
   userTokensController.fetchSecurityContext,
   function(req, res, next) {
-    // console.log('POST /authenticate_google_auth');
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
   }

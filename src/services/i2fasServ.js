@@ -20,7 +20,7 @@ function getAuthenticatorType(seccurityContext, callback) {
         type: 'basic',
         is2fa: false,
         isFullyLoggedIn: true
-      }
+      };
     } else {
       userData = {
         type: authData.type === 'SOFTWARE' ? 
@@ -28,7 +28,7 @@ function getAuthenticatorType(seccurityContext, callback) {
         is2fa: true,
         isFullyLoggedIn: false,
         authData: authData
-      }
+      };
     }
 
     callback(null, userData);
@@ -44,7 +44,7 @@ function getSoftAuthData(seccurityContext, callback) {
     
     if(libUtils.isObjectEmpty(activationData)) {
       result = {
-        error: 'invalid session token'        
+        error: 'Invalid session token'        
       }
     } else {
       result = {
@@ -57,7 +57,37 @@ function getSoftAuthData(seccurityContext, callback) {
   });
 }
 
+function activateDevice(securityContext, payload, callback) {
+  var result;
+  service.activate(securityContext, payload, function(err, response) {
+    if(err) {
+      return callback(err);
+    }
+
+    if(libUtils.isObjectEmpty(response)) {
+      result = {
+        error: 'Service failure'
+      };
+    } else if(response.result === 'activation_success') {
+      result = {
+        userData: {
+          type: 'google_auth',
+          is2fa: true,
+          isFullyLoggedIn: true
+        }        
+      };  
+    } else {
+      result = {
+        error: 'Invalid OTP Code'
+      };
+    }
+
+    callback(null, result);
+  });
+}
+
 module.exports = {
 	getAuthenticatorType: getAuthenticatorType,
-  getSoftAuthData: getSoftAuthData
+  getSoftAuthData: getSoftAuthData,
+  activateDevice: activateDevice
 };

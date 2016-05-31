@@ -3,6 +3,8 @@
  */
 
 var i2faServ = require('../services/i2fasServ');
+var libUtils = require('../lib/utils');
+var constants = require('../lib/constants');
 
 function getAuthenticationMethod(req, res, next) {
   i2faServ.getAuthenticatorType(req.securityContext, function(err, userData) {
@@ -38,12 +40,40 @@ function getSoftAuthData(req, res, next) {
       next(errorObj);
     }
     
+    // set secret and nonce in cookies
+    res.cookie(constants.GOOGLE_AUTH_NONCE_COOKIE_NAME, activationData.activationData.nonce);
+    res.cookie(constants.GOOGLE_AUTH_SECRET_COOKIE_NAME, activationData.activationData.secret);
+
     res.status(200);
     res.json(activationData);
   })
 }
 
+function activateDevice(req, res, next) {
+  // nonce and secret are in the cookies
+  var payload = {
+    nonce: libUtils.getGoogleAuthNonceCookieValue(req),
+    secret: libUtils.getGoogleAuthSecretCookieValue(req),
+    challenge: req.body.otp
+  }
+  i2faServ.activateDevice(req.securityContext, payload, function(err, userData) {
+    if(err) {
+      return next(err);
+    }
+
+    if(!userData) {
+      errorObj = new Error('Empty User Data');
+      errorObj.status = 401;
+      next(errorObj);
+    }
+
+    res.status(200);
+    res.json(userData);
+  })  
+}
+
 module.exports = {
   getAuthenticationMethod: getAuthenticationMethod,
-  getSoftAuthData: getSoftAuthData
+  getSoftAuthData: getSoftAuthData,
+  activateDevice: activateDevice
 }

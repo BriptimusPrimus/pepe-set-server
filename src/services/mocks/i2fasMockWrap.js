@@ -53,12 +53,39 @@ function softAuthData(securityContext, payload, callback) {
   }, configuration.mockResponseMiliseconds || 500);  
 }
 
+function activate(securityContext, payload, callback) {
+  // Note: 
+  // Payload Will look like:
+  // {"nonce":"2016-05-27T06:34:49Zf66FTWtIV3QU11z7OHi5A_GpU2adwX1AGg_EOBspM20", "secret":"STUBL6JBENQ3K5PF", "challenge": "449125"}
+  var response;
+  if(securityContext.use_case === 'type_basic'
+    && payload.nonce === '2016-05-27T20:16:54Z5oUqW4UFG9J4tReDwREu73dzoSLcsWntWg3HNLdWi10' 
+    && payload.secret === 'OA63RNHNN4A3S6Q2'
+    && payload.challenge === '000000') {
+      response = {
+        statusCode: 200,
+        result: 'activation_success'
+      };
+  } else {
+    response = {
+      statusCode: 400,
+      result: 'activation_failure'
+    };
+  }
+  
+  setTimeout(function() {
+    callback(null, response);
+  }, configuration.mockResponseMiliseconds || 500);
+}
+
 // This object implements the bridge interface:
 // interface: {
 //   authenticatorType: function(securityContext, callback){}
 //   softAuthData: function(securityContext, payload, callback){}
+//   activate: function(securityContext, payload, callback){}
 // }
 module.exports = {
 	authenticatorType: authenticatorType,
-  softAuthData: softAuthData
+  softAuthData: softAuthData,
+  activate: activate
 };

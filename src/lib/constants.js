@@ -1,5 +1,7 @@
 module.exports = {
   SESSION_TOKEN_COOKIE_NAME: 'session_token',
+  GOOGLE_AUTH_NONCE_COOKIE_NAME: 'google_auth_nonce',
+  GOOGLE_AUTH_SECRET_COOKIE_NAME: 'google_auth_secret',
   authTypes: {
     BASIC: 'basic',
     GOOGLE_AUTH: 'google_auth',

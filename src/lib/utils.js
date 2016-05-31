@@ -5,6 +5,14 @@ function getSessionTokenCookieValue(req) {
   return req.cookies[constants.SESSION_TOKEN_COOKIE_NAME];
 }
 
+function getGoogleAuthNonceCookieValue(req) {
+  return req.cookies[constants.GOOGLE_AUTH_NONCE_COOKIE_NAME];
+}
+
+function getGoogleAuthSecretCookieValue(req) {
+  return req.cookies[constants.GOOGLE_AUTH_SECRET_COOKIE_NAME];
+}
+
 function isObjectEmpty(obj) {
     // null and undefined are "empty"
     if (!obj) {
@@ -30,5 +38,7 @@ function isObjectEmpty(obj) {
 
 module.exports = {
 	getSessionTokenCookieValue: getSessionTokenCookieValue,
+  getGoogleAuthNonceCookieValue: getGoogleAuthNonceCookieValue,
+  getGoogleAuthSecretCookieValue: getGoogleAuthSecretCookieValue,
   isObjectEmpty: isObjectEmpty
 };
