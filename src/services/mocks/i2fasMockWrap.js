@@ -78,14 +78,39 @@ function activate(securityContext, payload, callback) {
   }, configuration.mockResponseMiliseconds || 500);
 }
 
+function autheticate(securityContext, payload, callback) {
+  // Note: 
+  // Payload Will look like:  
+  // { "secret":"STUBL6JBENQ3K5PF--", "challenge": "870827"}
+  if(securityContext.use_case === 'type_google_auth'
+    && payload.secret === 'STUBL6JBENQ3K5PF--'
+    && payload.challenge === '111111') {
+      response = {
+        statusCode: 200,
+        result: '2fa_login_success'
+      };
+  } else {
+    response = {
+      statusCode: 400,
+      result: 'a2fa_login_failure'
+    };
+  }
+
+  setTimeout(function() {
+    callback(null, response);
+  }, configuration.mockResponseMiliseconds || 500);  
+}
+
 // This object implements the bridge interface:
 // interface: {
 //   authenticatorType: function(securityContext, callback){}
 //   softAuthData: function(securityContext, payload, callback){}
 //   activate: function(securityContext, payload, callback){}
+//   autheticate: function(securityContext, payload, callback){}
 // }
 module.exports = {
 	authenticatorType: authenticatorType,
   softAuthData: softAuthData,
-  activate: activate
+  activate: activate,
+  autheticate: autheticate
 };

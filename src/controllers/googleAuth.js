@@ -76,11 +76,34 @@ function activateDevice(req, res, next) {
 
     res.status(200);
     res.json(userData);
-  })  
+  });
+}
+
+function autheticateUser(req, res, next) {
+  // secret is in the cookies
+  var payload = {
+    secret: libUtils.getGoogleAuthSecretCookieValue(req),
+    challenge: req.body.otp
+  }
+  i2faServ.autheticateUser(req.securityContext, payload, function(err, userData) {
+    if(err) {
+      return next(err);
+    }
+
+    if(!userData) {
+      errorObj = new Error('Empty User Data');
+      errorObj.status = 401;
+      next(errorObj);
+    }
+    
+    res.status(200);
+    res.json(userData);    
+  });
 }
 
 module.exports = {
   getAuthenticationMethod: getAuthenticationMethod,
   getSoftAuthData: getSoftAuthData,
-  activateDevice: activateDevice
+  activateDevice: activateDevice,
+  autheticateUser: autheticateUser
 }

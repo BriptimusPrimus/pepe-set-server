@@ -86,8 +86,38 @@ function activateDevice(securityContext, payload, callback) {
   });
 }
 
+function autheticateUser(securityContext, payload, callback) {
+  var result;
+  service.autheticate(securityContext, payload, function(err, response) {
+    if(err) {
+      return callback(err);
+    }
+    
+    if(libUtils.isObjectEmpty(response)) {
+      result = {
+        error: 'Service failure'
+      };
+    } else if(response.result === '2fa_login_success') {
+      result = {
+        userData: {
+          type: 'google_auth',
+          is2fa: true,
+          isFullyLoggedIn: true
+        }        
+      }
+    } else {
+      result = {
+        error: 'Invalid OTP Code'
+      };      
+    }
+
+    callback(null, result);
+  });
+}
+
 module.exports = {
 	getAuthenticatorType: getAuthenticatorType,
   getSoftAuthData: getSoftAuthData,
-  activateDevice: activateDevice
+  activateDevice: activateDevice,
+  autheticateUser: autheticateUser
 };

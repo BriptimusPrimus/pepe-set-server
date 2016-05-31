@@ -44,7 +44,8 @@ router.post('/authenticate_google_auth',
   function(req, res, next) {
     console.log('fethed Security Context:', JSON.stringify(req.securityContext));
     next();
-  }
+  },
+  googleAuthController.autheticateUser
 );
 
 module.exports = router;
