@@ -12,13 +12,13 @@ function authenticatorType(securityContext, callback) {
   } else if(securityContext.use_case === 'type_google_auth') {
     result = {
       id: 'AAGmNbvdtDg7gxeLhRwvm4O2yE3sYhkT9mfRJFjCnP7_rOWwVLknZz_KOOVdbJ_pWw9hAph_ENsglfT4jRlMWpv1sVUQVQ==',
-      secret: 'OA63RNHNN4A3S6Q2',
+      secret: 'STUBL6JBENQ3K5PF--',
       type: 'SOFTWARE'
     }
   } else if(securityContext.use_case === 'type_unknown') {
     result = {
       id: 'AAGmNbvdtDg7gxeLhRwvm4O2yE3sYhkT9mfRJFjCnP7_rOWwVLknZz_KOOVdbJ_pWw9hAph_ENsglfT4jRlMWpv1sVUQVQ==',
-      secret: 'OA63RNHNN4A3S6Q2',
+      secret: 'STUBL6JBENQ3K5PF--',
       type: 'XXXYYYZZZ'
     }
   } else {

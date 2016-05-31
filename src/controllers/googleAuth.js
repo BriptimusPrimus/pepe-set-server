@@ -20,6 +20,11 @@ function getAuthenticationMethod(req, res, next) {
       errorObj.status = 401;
       next(errorObj);
     }
+    
+    // set secret in cookies
+    if (userData.authData) {
+      res.cookie(constants.GOOGLE_AUTH_SECRET_COOKIE_NAME, userData.authData.secret);
+    }    
 
     res.status(200);
     res.json({
@@ -29,23 +34,25 @@ function getAuthenticationMethod(req, res, next) {
 }
 
 function getSoftAuthData(req, res, next) {
-  i2faServ.getSoftAuthData(req.securityContext, function(err, activationData) {
+  i2faServ.getSoftAuthData(req.securityContext, function(err, data) {
     if(err) {
       return next(err);
     }
 
-    if(!activationData) {
+    if(!data) {
       errorObj = new Error('Empty Activation Data');
       errorObj.status = 401;
       next(errorObj);
     }
     
     // set secret and nonce in cookies
-    res.cookie(constants.GOOGLE_AUTH_NONCE_COOKIE_NAME, activationData.activationData.nonce);
-    res.cookie(constants.GOOGLE_AUTH_SECRET_COOKIE_NAME, activationData.activationData.secret);
+    if (data.activationData) {
+      res.cookie(constants.GOOGLE_AUTH_NONCE_COOKIE_NAME, data.activationData.nonce);
+      res.cookie(constants.GOOGLE_AUTH_SECRET_COOKIE_NAME, data.activationData.secret);
+    }
 
     res.status(200);
-    res.json(activationData);
+    res.json(data);
   })
 }
 
